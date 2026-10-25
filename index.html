@@ -181,6 +181,17 @@
     </section>
   </main>
 
+  <!-- Phones: shows the finished PNG so it can be saved with a long-press
+       (in-app browsers like Facebook/Viber ignore normal downloads). -->
+  <div class="save-dialog" id="saveDialog" role="dialog" aria-modal="true" aria-labelledby="saveTitle" hidden>
+    <div class="save-bar">
+      <h2 id="saveTitle">Your invitation</h2>
+      <button type="button" id="saveClose" class="save-btn">Close</button>
+    </div>
+    <div class="save-area"><img id="saveImage" alt="Finished invitation"></div>
+    <p class="save-hint">If the download didn’t start, press and hold the image, then choose <b>Save image</b> or <b>Download image</b>.</p>
+  </div>
+
   <script src="assets/embedded.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
   <script src="app.js"></script>

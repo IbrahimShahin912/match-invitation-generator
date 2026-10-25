@@ -168,6 +168,25 @@
     }
   }
 
+  // ── Save-image dialog (phones) ──
+  const saveDialog = $('#saveDialog');
+  const saveImage = $('#saveImage');
+  const isPhone = window.matchMedia('(pointer: coarse)').matches;
+
+  function openSaveDialog(url) {
+    saveImage.src = url;
+    saveDialog.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSaveDialog() {
+    saveDialog.hidden = true;
+    document.body.style.overflow = '';
+  }
+  $('#saveClose').addEventListener('click', closeSaveDialog);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !saveDialog.hidden) closeSaveDialog();
+  });
+
   $('#download').addEventListener('click', () =>
     withExport('Preparing image…', async (file) => {
       const url = URL.createObjectURL(file);
@@ -177,6 +196,12 @@
       document.body.appendChild(a);
       a.click();
       a.remove();
+      if (isPhone) {
+        // In-app browsers silently ignore the download, so also show the
+        // image for a long-press save. A data URL survives the long-press
+        // menu where some browsers drop blob URLs.
+        openSaveDialog(await blobToDataUrl(file));
+      }
       setTimeout(() => URL.revokeObjectURL(url), 60_000);
       return 'Downloaded. Ready to post on Facebook.';
     })

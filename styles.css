@@ -262,6 +262,50 @@ body {
 .f-icon { width: 1.45em; height: 1.45em; flex: none; }
 .f-email { color: var(--deep); text-decoration: underline; text-underline-offset: 2px; }
 
+/* ───────────── Save-image dialog (phones) ───────────── */
+.save-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  background: #0d1416;
+  color: #fff;
+}
+.save-dialog[hidden] { display: none; }
+.save-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+}
+.save-bar h2 { margin: 0; font-size: 17px; font-weight: 600; }
+.save-area {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  padding: 0 16px;
+}
+.save-area img {
+  max-width: 100%;
+  max-height: 100%;
+  /* Let the browser's own long-press menu appear on iOS. */
+  -webkit-touch-callout: default;
+}
+.save-hint { margin: 0; padding: 14px 16px 20px; text-align: center; color: #a9bcc2; font-size: 14px; }
+.save-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 16px;
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
 /* ───────────── Narrow screens ───────────── */
 @media (max-width: 860px) {
   .app { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
