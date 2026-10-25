@@ -1,0 +1,274 @@
+/* Faruma from disk; app.js also registers an embedded copy as "Faruma" so
+   PNG export works when the page is opened via file://. */
+@font-face {
+  font-family: "FarumaLocal";
+  src: url("fonts/Faruma.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  /* Palette sampled from assets/council-logo.png */
+  --deep: #2c6373;
+  --teal: #437b8b;
+  --mid: #5ba3bb;
+  --light: #93cadb;
+  --pale: #e2f4f5;
+  --ink: #12262c;
+
+  --ui-bg: #eef3f5;
+  --ui-panel: #ffffff;
+  --ui-border: #d5e1e5;
+  --ui-text: #1d2d33;
+  --ui-muted: #5d7279;
+
+  --dv: "Faruma", "FarumaLocal", "MV Boli", sans-serif;
+  --en-body: "Poppins", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ui-bg);
+  color: var(--ui-text);
+  font: 14px/1.45 var(--en-body);
+}
+
+/* ───────────── App layout ───────────── */
+.app {
+  display: grid;
+  grid-template-columns: minmax(300px, 360px) 1fr;
+  height: 100vh;
+}
+
+.panel {
+  background: var(--ui-panel);
+  border-right: 1px solid var(--ui-border);
+  overflow-y: auto;
+  padding: 20px 20px 32px;
+}
+
+.group {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--ui-border);
+  display: grid;
+  gap: 6px;
+}
+.group:first-child { padding-top: 0; }
+.group:last-child { border-bottom: 0; }
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ui-muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-top: 6px;
+}
+.label:first-child { margin-top: 0; }
+
+.text-input {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--ui-border);
+  border-radius: 8px;
+  font: inherit;
+  color: inherit;
+  background: #fbfdfd;
+  resize: vertical;
+}
+.text-input:focus {
+  outline: 2px solid var(--mid);
+  outline-offset: 1px;
+  border-color: var(--mid);
+}
+.text-input[dir="rtl"] { font-family: var(--dv); font-size: 16px; }
+
+
+
+.primary {
+  margin-top: 8px;
+  border: 0;
+  border-radius: 9px;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--teal), var(--deep));
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+}
+.primary:hover { filter: brightness(1.08); }
+.actions { display: flex; gap: 8px; }
+.actions .primary { flex: 1; }
+.primary.secondary {
+  background: var(--ui-panel);
+  color: var(--deep);
+  border: 1.5px solid var(--teal);
+}
+.primary[hidden] { display: none; }
+.primary:disabled { opacity: .6; cursor: progress; }
+
+.hint { margin: 4px 0 0; font-size: 12.5px; color: var(--ui-muted); min-height: 1em; }
+.hint.error { color: #b3261e; }
+
+/* ───────────── Preview ───────────── */
+.preview {
+  overflow: auto;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.stage {
+  /* width/height + scale are set by app.js */
+  transform-origin: top left;
+}
+
+
+/* ───────────── Invitation (4:5 social-media portrait) ───────────── */
+.poster {
+  position: relative;
+  width: 800px;
+  height: 1000px;
+  overflow: hidden;
+  background: #fff;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: var(--dv);
+  box-shadow: 0 10px 40px rgba(18, 38, 44, .18);
+}
+.poster > *:not(.bg) { position: relative; }
+.bg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* Faruma has no bold, so headings are faux-bolded with a text stroke. */
+.p-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 26px;
+}
+.event-logo { height: 170px; width: auto; }
+.p-org,
+.p-address {
+  margin: 0;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: var(--teal);
+  -webkit-text-stroke: .7px var(--teal);
+}
+.p-org { font-size: 34px; margin-top: 6px; }
+.p-address { font-size: 28px; }
+
+.p-title {
+  margin: 10px 0 0;
+  font-size: 76px;
+  line-height: 1.3;
+  white-space: nowrap;
+  color: var(--ink);
+  -webkit-text-stroke: 2px var(--ink);
+  text-shadow: 3px 3px 0 rgba(44, 99, 115, .18);
+}
+
+.rule {
+  display: block;
+  width: 270px;
+  height: 2px;
+  background: var(--deep);
+  opacity: .75;
+  margin: 6px auto 0;
+}
+
+.p-message {
+  margin: 30px 0 0;
+  max-width: 640px;
+  font-size: 28px;
+  line-height: 1.75;
+  white-space: pre-line;
+  color: #34484f;
+}
+
+/* ── Date / time / venue card ── */
+.details {
+  margin: 32px 0 0;
+  width: 560px;
+  padding: 10px 26px;
+  display: grid;
+  background: rgba(255, 255, 255, .78);
+  border: 1.5px solid var(--light);
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(44, 99, 115, .12);
+}
+.d-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 0;
+  font-size: 26px;
+  line-height: 1.5;
+}
+.d-row + .d-row { border-top: 1px solid var(--pale); }
+.d-icon { width: 38px; height: 38px; flex: none; }
+.details dt {
+  width: 74px;
+  flex: none;
+  text-align: right;
+  color: var(--teal);
+  -webkit-text-stroke: .6px var(--teal);
+}
+.details dd {
+  margin: 0;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--ink);
+  -webkit-text-stroke: .5px var(--ink);
+}
+
+.council {
+  margin-top: 30px;
+  height: 84px;
+  width: auto;
+}
+
+.p-footer {
+  position: absolute !important;
+  left: 18px;
+  right: 18px;
+  bottom: 16px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* See-through so the waves show, but light enough to keep text readable. */
+  background: rgba(255, 255, 255, .72);
+  border: 1px solid rgba(255, 255, 255, .85);
+  border-radius: 25px;
+  box-shadow: 0 4px 14px rgba(18, 38, 44, .12);
+  font-family: var(--en-body);
+}
+.p-footer-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.1em;
+  font-size: 16px;
+  white-space: nowrap;
+  color: #3a4f57;
+}
+.f-item { display: inline-flex; align-items: center; gap: .45em; }
+.f-icon { width: 1.45em; height: 1.45em; flex: none; }
+.f-email { color: var(--deep); text-decoration: underline; text-underline-offset: 2px; }
+
+/* ───────────── Narrow screens ───────────── */
+@media (max-width: 860px) {
+  .app { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
+  .panel { border-right: 0; border-top: 1px solid var(--ui-border); padding: 16px 16px 32px; }
+  .preview { order: -1; padding: 16px; place-items: start center; }
+  /* 16px+ stops mobile browsers zooming in when a field is tapped. */
+  .text-input, select.text-input { font-size: 16px; }
+  .text-input[dir="rtl"] { font-size: 18px; }
+  .primary { padding: 14px; font-size: 16px; }
+}

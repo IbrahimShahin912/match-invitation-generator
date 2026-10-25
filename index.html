@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invitation Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <!-- ───────────── Controls ───────────── -->
+    <aside class="panel">
+      <section class="group">
+        <label class="label" for="f-org">Office / council name</label>
+        <input id="f-org" data-field="org" class="text-input" dir="rtl" lang="dv">
+
+        <label class="label" for="f-address">Address line</label>
+        <input id="f-address" data-field="address" class="text-input" dir="rtl" lang="dv">
+
+        <label class="label" for="f-title">Heading</label>
+        <input id="f-title" data-field="title" class="text-input" dir="rtl" lang="dv">
+      </section>
+
+      <section class="group">
+        <label class="label" for="f-message">Invitation message</label>
+        <textarea id="f-message" data-field="message" class="text-input" dir="rtl" lang="dv" rows="4"></textarea>
+      </section>
+
+      <section class="group">
+        <label class="label" for="f-date">Date</label>
+        <input id="f-date" data-field="date" class="text-input" dir="rtl" lang="dv">
+
+        <label class="label" for="f-time">Time</label>
+        <input id="f-time" data-field="time" class="text-input" dir="rtl" lang="dv">
+
+        <label class="label" for="f-venue">Venue</label>
+        <input id="f-venue" data-field="venue" class="text-input" dir="rtl" lang="dv">
+      </section>
+
+      <section class="group download">
+        <label class="label" for="size">PNG size</label>
+        <select id="size" class="text-input">
+          <option value="1080">Social media: 1080 × 1350 px (4:5)</option>
+          <option value="2160">High quality: 2160 × 2700 px (4:5)</option>
+        </select>
+        <div class="actions">
+          <button type="button" id="download" class="primary">Download PNG</button>
+          <button type="button" id="share" class="primary secondary" hidden>Share…</button>
+        </div>
+        <p class="hint" id="status" role="status"></p>
+      </section>
+    </aside>
+
+    <!-- ───────────── Preview ───────────── -->
+    <section class="preview" id="preview">
+      <div class="stage" id="stage">
+        <article class="poster" id="poster" lang="dv" dir="rtl">
+          <svg class="bg" viewBox="0 0 794 1123" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="gDeep" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" style="stop-color:var(--teal)"/>
+                <stop offset="1" style="stop-color:var(--deep)"/>
+              </linearGradient>
+              <linearGradient id="gMid" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" style="stop-color:var(--mid)"/>
+                <stop offset="1" style="stop-color:var(--teal)"/>
+              </linearGradient>
+              <linearGradient id="gLight" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0" style="stop-color:var(--light)"/>
+                <stop offset="1" style="stop-color:var(--mid)"/>
+              </linearGradient>
+              <linearGradient id="gWash" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" style="stop-color:var(--pale)" stop-opacity="0"/>
+                <stop offset="1" style="stop-color:var(--pale)"/>
+              </linearGradient>
+            </defs>
+
+            <!-- soft wash on the right half -->
+            <path d="M794 300 C640 420 560 640 600 1123 L794 1123 Z" fill="url(#gWash)"/>
+            <path d="M794 520 L520 760 L794 1000 Z" style="fill:var(--pale)" opacity=".55"/>
+
+            <!-- top-right swoosh -->
+            <path d="M505 0 C575 150 700 250 794 470 L794 0 Z" fill="#e9eff1"/>
+            <path d="M548 0 C625 130 735 210 794 360 L794 0 Z" fill="url(#gDeep)"/>
+            <path d="M640 0 C700 80 760 120 794 190 L794 0 Z" fill="url(#gMid)"/>
+            <path d="M720 0 C752 40 778 60 794 92 L794 0 Z" style="fill:var(--light)" opacity=".85"/>
+
+            <!-- bottom-right fine lines -->
+            <g fill="none" style="stroke:var(--light)" stroke-width="2" opacity=".55">
+              <path d="M794 760 C700 880 610 990 520 1123"/>
+              <path d="M794 800 C705 915 625 1015 545 1123"/>
+              <path d="M794 840 C712 950 640 1040 570 1123"/>
+              <path d="M794 880 C720 985 655 1065 595 1123"/>
+              <path d="M794 920 C728 1020 672 1090 620 1123"/>
+            </g>
+            <path d="M600 1123 C690 1070 755 1010 794 940 L794 1123 Z" fill="url(#gLight)"/>
+            <path d="M700 1123 C745 1095 775 1060 794 1030 L794 1123 Z" fill="url(#gDeep)"/>
+
+            <!-- bottom-left waves -->
+            <path d="M0 770 C70 930 250 1035 470 1085 C600 1112 700 1118 794 1123 L0 1123 Z" fill="#e9eff1"/>
+            <path d="M0 800 C60 945 230 1045 440 1095 C540 1115 600 1120 660 1123 L0 1123 Z" fill="url(#gDeep)"/>
+            <path d="M0 905 C120 1010 260 1065 430 1100 C480 1110 520 1118 560 1123 L0 1123 Z" fill="url(#gMid)" opacity=".95"/>
+            <path d="M0 985 C110 1060 230 1095 390 1123 L0 1123 Z" fill="url(#gLight)" opacity=".9"/>
+            <path d="M0 1050 C70 1090 140 1110 230 1123 L0 1123 Z" style="fill:var(--deep)"/>
+          </svg>
+
+          <header class="p-head">
+            <img class="event-logo" src="assets/event-logo.png" alt="Event logo" data-asset="event">
+            <p class="p-org" data-out="org" data-fit="720"></p>
+            <p class="p-address" data-out="address" data-fit="600"></p>
+          </header>
+
+          <p class="p-title" data-out="title" data-fit="600"></p>
+          <span class="rule"></span>
+
+          <p class="p-message" data-out="message" data-fit-h="175"></p>
+
+          <dl class="details">
+            <div class="d-row">
+              <svg class="d-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="12" style="fill:var(--teal)"/>
+                <rect x="6.5" y="7.5" width="11" height="10" rx="1.5" fill="none" stroke="#fff" stroke-width="1.5"/>
+                <path d="M6.5 10.8h11M9.5 6v3M14.5 6v3" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <dt>ތާރީޚު</dt>
+              <dd data-out="date" data-fit="400"></dd>
+            </div>
+            <div class="d-row">
+              <svg class="d-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="12" style="fill:var(--teal)"/>
+                <circle cx="12" cy="12" r="5.8" fill="none" stroke="#fff" stroke-width="1.5"/>
+                <path d="M12 8.8V12l2.2 1.6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <dt>ގަޑި</dt>
+              <dd data-out="time" data-fit="400"></dd>
+            </div>
+            <div class="d-row">
+              <svg class="d-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="12" style="fill:var(--teal)"/>
+                <path d="M12 18.5s-4.6-4.4-4.6-8a4.6 4.6 0 0 1 9.2 0c0 3.6-4.6 8-4.6 8z" fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+                <circle cx="12" cy="10.4" r="1.7" fill="#fff"/>
+              </svg>
+              <dt>ތަން</dt>
+              <dd data-out="venue" data-fit="400"></dd>
+            </div>
+          </dl>
+
+          <img class="council" src="assets/council-logo.png" alt="Council logo" data-asset="council">
+
+          <footer class="p-footer" dir="ltr">
+            <div class="p-footer-row" data-fit="720">
+              <span class="f-item">
+                <svg class="f-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="12" style="fill:var(--teal)"/>
+                  <path fill="#fff" d="M9.1 6.6c.3-.3.8-.3 1.1 0l1.3 1.6c.3.3.2.8 0 1.1l-.8.8c.6 1.3 1.6 2.3 2.9 2.9l.8-.8c.3-.3.8-.3 1.1 0l1.6 1.3c.3.3.3.8 0 1.1l-.9 1c-.5.5-1.3.7-2 .4-2.8-1.1-5-3.3-6.1-6.1-.3-.7-.1-1.5.4-2z"/>
+                </svg>
+                <span>+960 6500019</span>
+              </span>
+              <span class="f-item">
+                <svg class="f-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="12" style="fill:var(--teal)"/>
+                  <rect x="6.2" y="8" width="11.6" height="8.2" rx="1" fill="none" stroke="#fff" stroke-width="1.5"/>
+                  <path d="M6.6 8.6 12 12.7l5.4-4.1" fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+                </svg>
+                <span class="f-email">info@hadhidhoo.gov.mv</span>
+              </span>
+              <span class="f-item">
+                <svg class="f-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="12" style="fill:var(--teal)"/>
+                  <path fill="#fff" d="M13.1 19v-6h2l.3-2.4h-2.3V9.1c0-.7.2-1.1 1.2-1.1h1.2V5.9c-.2 0-.9-.1-1.8-.1-1.8 0-3 1.1-3 3.1v1.7h-2V13h2v6z"/>
+                </svg>
+                <span>Secretariat of Dhidhdhoo Council, North Thiladhunmathi</span>
+              </span>
+            </div>
+          </footer>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/embedded.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

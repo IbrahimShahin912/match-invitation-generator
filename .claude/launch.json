@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "invitation", "runtimeExecutable": "python", "runtimeArgs": ["-m", "http.server", "5174"], "port": 5174 }
+  ]
+}
